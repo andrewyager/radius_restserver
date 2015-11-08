@@ -1,0 +1,28 @@
+mysqldb:
+  image: mysql:5.6
+  environment:
+     - MYSQL_ROOT_PASSWORD=verysecret
+dbadmin:
+  image: marvambass/phpmyadmin
+  links:
+   - mysqldb:mysql
+  ports:
+   - "8443:443"
+postgres:
+  image: postgres:9.4
+radius:
+  build: radius/.
+  links:
+   - mysqldb:mysql
+  environment:
+     - MYSQL_ROOT_PASSWORD=verysecret
+django:
+  build: .
+  ports:
+    - "81:8000"
+  links:
+   - mysqldb:mysqldb
+   - postgres:db
+   - radius:radius
+  volumes:
+   - ./src:/usr/src/app
