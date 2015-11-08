@@ -336,7 +336,7 @@ SET character_set_client = @saved_cs_client ;
 DROP TABLE IF EXISTS `user_billing_detail`;
 SET @saved_cs_client     = @@character_set_client ;
 SET character_set_client = utf8 ;
-CREATE TABLE `user_billing_detail` (
+CREATE TABLE `user_billing_detail` ( 
   `username` varchar(255) NOT NULL,
   `anniversary_day` int(11) NOT NULL,
   `action` enum('shape','excess') NOT NULL,
@@ -353,12 +353,14 @@ DROP TABLE IF EXISTS `user_data`;
 SET @saved_cs_client     = @@character_set_client ;
 SET character_set_client = utf8 ;
 CREATE TABLE `user_data` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `datain` bigint(20) NOT NULL,
   `dataout` bigint(20) NOT NULL,
   `totaldata` bigint(20) NOT NULL,
   `data_hour` int(11) NOT NULL,
   `date` date NOT NULL,
+  PRIMARY KEY(`id`),
   UNIQUE KEY `user_date_index` (`username`,`data_hour`,`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client ;

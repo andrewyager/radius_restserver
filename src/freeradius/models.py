@@ -214,6 +214,7 @@ class UserData(models.Model):
         managed = False
         db_table = 'user_data'
         unique_together = (('username', 'data_hour', 'date'),)
+        ordering = ['username', 'date', 'data_hour']
 
 
 class UserQuota(models.Model):

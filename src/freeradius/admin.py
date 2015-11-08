@@ -42,6 +42,10 @@ class UserBillingDetailAdmin(admin.ModelAdmin):
 
 class UserDataAdmin(admin.ModelAdmin):
     model = UserData
+    list_display = ('username', 'date', 'data_hour', 'tdata')
+
+    def tdata(self, obj):
+    	return "%sGB" % (obj.totaldata/1024/1024);
 
 class UserQuotaAdmin(admin.ModelAdmin):
     model = UserQuota
