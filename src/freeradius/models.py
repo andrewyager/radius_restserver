@@ -18,6 +18,9 @@ class BadUsers(models.Model):
     reason = models.CharField(db_column='Reason', max_length=200, blank=True, null=True)  # Field name made lowercase.
     admin = models.CharField(db_column='Admin', max_length=30, blank=True, null=True)  # Field name made lowercase.
 
+    def __unicode__(self):
+        return self.username+" "+self.date+" "+self.reason
+
     class Meta:
         managed = False
         db_table = 'badusers'
@@ -32,6 +35,9 @@ class NAS(models.Model):
     community = models.CharField(max_length=50, blank=True, null=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     server = models.CharField(max_length=128, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.shortname+" ("+self.nasname+")"
 
     class Meta:
         managed = False
@@ -77,6 +83,9 @@ class RadCheck(models.Model):
     op = models.CharField(max_length=2)
     value = models.CharField(max_length=253)
 
+    def __unicode__(self):
+        return self.username+" "+self.attribute+self.op+self.value
+
     class Meta:
         managed = False
         db_table = 'radcheck'
@@ -88,6 +97,9 @@ class RadGroupCheck(models.Model):
     op = models.CharField(max_length=2)
     value = models.CharField(max_length=253)
 
+    def __unicode__(self):
+        return self.groupname+" "+self.attribute+self.op+self.value
+
     class Meta:
         managed = False
         db_table = 'radgroupcheck'
@@ -98,6 +110,9 @@ class RadGroupReply(models.Model):
     attribute = models.CharField(max_length=32)
     op = models.CharField(max_length=2)
     value = models.CharField(max_length=253)
+
+    def __unicode__(self):
+        return self.groupname+" "+self.attribute+self.op+self.value
 
     class Meta:
         managed = False
@@ -136,6 +151,10 @@ class RadReply(models.Model):
     op = models.CharField(max_length=2)
     value = models.CharField(max_length=253)
 
+    def __unicode__(self):
+        return self.username+" "+self.attribute+self.op+self.value
+
+
     class Meta:
         managed = False
         db_table = 'radreply'
@@ -145,6 +164,10 @@ class RadUserGroup(models.Model):
     username = models.CharField(max_length=64)
     groupname = models.CharField(max_length=64)
     priority = models.IntegerField()
+
+    def __unicode__(self):
+        return self.username+" "+self.groupname
+
 
     class Meta:
         managed = False

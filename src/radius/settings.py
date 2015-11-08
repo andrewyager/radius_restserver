@@ -42,6 +42,7 @@ DJANGO_APPS = (
 THIRDPARTY_APPS = (
     'markdown',
     'rest_framework',
+    'django_admin_bootstrapped',
     )
 
 LOCAL_APPS = (
@@ -49,7 +50,7 @@ LOCAL_APPS = (
     )
 
 INSTALLED_APPS = (
-    ) + DJANGO_APPS + THIRDPARTY_APPS + LOCAL_APPS
+    ) + THIRDPARTY_APPS + DJANGO_APPS  + LOCAL_APPS
 
 
 
@@ -120,7 +121,7 @@ DATABASE_ROUTERS = ['radius.dbrouter.DBRouter']
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Australia/Sydney'
 
 USE_I18N = True
 
@@ -128,6 +129,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+
+from django.contrib import messages
+
+MESSAGE_TAGS = {
+            messages.SUCCESS: 'alert-success success',
+            messages.WARNING: 'alert-warning warning',
+            messages.ERROR: 'alert-danger error'
+}
+
+#DEFAULT_CONTENT_TYPE = 'application/xhtml+xml'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
