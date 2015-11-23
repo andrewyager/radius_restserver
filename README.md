@@ -20,8 +20,8 @@ The web app is exposed on port 81 in docker-compose. We develop with docker-mach
 Once you've started the app, a few housekeeping things are needed
 
 ```
-docker-compose run --rm django manage.py migrate
-docker-compose run --rm django manage.py createsuperuser
+docker-compose run --rm django ./manage.py migrate
+docker-compose run --rm django ./manage.py createsuperuser
 #if you want to load the test data - recommended
 docker-compose run --rm radius /usr/src/build/load-test-data.sh
 ```
