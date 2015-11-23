@@ -420,7 +420,7 @@ CREATE TABLE `userinfo` (
   `Mobile` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `notes` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
-  KEY `UserName` (`UserName`),
+  UNIQUE KEY `UserName` (`UserName`),
   KEY `Departmet` (`Department`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET character_set_client = @saved_cs_client ;

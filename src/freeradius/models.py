@@ -12,8 +12,28 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+class UserInfo(models.Model):
+    username = models.CharField(db_column='UserName', max_length=54, primary_key=True)  # Field name made lowercase.
+    name = models.CharField(db_column='Name', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    mail = models.CharField(db_column='Mail', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    department = models.CharField(db_column='Department', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    workphone = models.CharField(db_column='WorkPhone', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    homephone = models.CharField(db_column='HomePhone', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    mobile = models.CharField(db_column='Mobile', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    notes = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        if self.name:
+            return self.name + " ("+self.username+")"
+        else:
+            return self.username
+
+    class Meta:
+        managed = False
+        db_table = 'userinfo'
+
 class BadUsers(models.Model):
-    username = models.CharField(db_column='UserName', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    username = models.ForeignKey(UserInfo, db_column='UserName', max_length=30, blank=True, null=True, to_field='username')  # Field name made lowercase.
     date = models.DateTimeField(db_column='Date')  # Field name made lowercase.
     reason = models.CharField(db_column='Reason', max_length=200, blank=True, null=True)  # Field name made lowercase.
     admin = models.CharField(db_column='Admin', max_length=30, blank=True, null=True)  # Field name made lowercase.
@@ -48,7 +68,7 @@ class RadAcct(models.Model):
     radacctid = models.BigIntegerField(primary_key=True)
     acctsessionid = models.CharField(max_length=64)
     acctuniqueid = models.CharField(max_length=32)
-    username = models.CharField(db_column='UserName', max_length=64)  # Field name made lowercase.
+    username = models.ForeignKey(UserInfo, db_column='UserName', max_length=64, to_field='username')  # Field name made lowercase.
     groupname = models.CharField(db_column='GroupName', max_length=64)  # Field name made lowercase.
     realm = models.CharField(max_length=64, blank=True, null=True)
     nasipaddress = models.CharField(db_column='NASIPAddress', max_length=15)  # Field name made lowercase.
@@ -78,7 +98,7 @@ class RadAcct(models.Model):
 
 
 class RadCheck(models.Model):
-    username = models.CharField(max_length=64)
+    username = models.ForeignKey(UserInfo, db_column='username', max_length=64, to_field='username')
     attribute = models.CharField(max_length=32)
     op = models.CharField(max_length=2)
     value = models.CharField(max_length=253)
@@ -126,7 +146,7 @@ class RadIPPool(models.Model):
     calledstationid = models.CharField(max_length=30)
     callingstationid = models.CharField(max_length=30)
     expiry_time = models.DateTimeField(blank=True, null=True)
-    username = models.CharField(max_length=64)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     pool_key = models.CharField(max_length=30)
 
     class Meta:
@@ -135,7 +155,7 @@ class RadIPPool(models.Model):
 
 
 class RadPostAuth(models.Model):
-    username = models.CharField(max_length=64)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     pass_field = models.CharField(db_column='pass', max_length=64)  # Field renamed because it was a Python reserved word.
     reply = models.CharField(max_length=32)
     authdate = models.DateTimeField()
@@ -146,7 +166,7 @@ class RadPostAuth(models.Model):
 
 
 class RadReply(models.Model):
-    username = models.CharField(max_length=64)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     attribute = models.CharField(max_length=32)
     op = models.CharField(max_length=2)
     value = models.CharField(max_length=253)
@@ -161,7 +181,7 @@ class RadReply(models.Model):
 
 
 class RadUserGroup(models.Model):
-    username = models.CharField(max_length=64)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     groupname = models.CharField(max_length=64)
     priority = models.IntegerField()
 
@@ -176,7 +196,7 @@ class RadUserGroup(models.Model):
 
 class TotAcct(models.Model):
     totacctid = models.BigIntegerField(db_column='TotAcctId', primary_key=True)  # Field name made lowercase.
-    username = models.CharField(db_column='UserName', max_length=64)  # Field name made lowercase.
+    username = models.ForeignKey(UserInfo, db_column='UserName', to_field='username')  # Field name made lowercase.
     acctdate = models.DateField(db_column='AcctDate')  # Field name made lowercase.
     connnum = models.BigIntegerField(db_column='ConnNum', blank=True, null=True)  # Field name made lowercase.
     conntotduration = models.BigIntegerField(db_column='ConnTotDuration', blank=True, null=True)  # Field name made lowercase.
@@ -192,7 +212,7 @@ class TotAcct(models.Model):
 
 
 class UserBillingDetail(models.Model):
-    username = models.CharField(primary_key=True, max_length=255)
+    username = models.OneToOneField(UserInfo, primary_key=True)
     anniversary_day = models.IntegerField()
     action = models.CharField(max_length=6)
     status = models.CharField(max_length=9)
@@ -203,7 +223,7 @@ class UserBillingDetail(models.Model):
 
 
 class UserData(models.Model):
-    username = models.CharField(max_length=255)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     datain = models.BigIntegerField()
     dataout = models.BigIntegerField()
     totaldata = models.BigIntegerField()
@@ -218,7 +238,7 @@ class UserData(models.Model):
 
 
 class UserQuota(models.Model):
-    username = models.CharField(max_length=255)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     quota_date = models.DateTimeField()
     quota = models.BigIntegerField()
     id = models.BigIntegerField(primary_key=True)
@@ -230,7 +250,7 @@ class UserQuota(models.Model):
 
 class UserStats(models.Model):
     radacct_id = models.IntegerField()
-    username = models.CharField(max_length=64)
+    username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     acctsessionid = models.CharField(max_length=64)
     acctuniqueid = models.CharField(max_length=32)
     timestamp = models.DateTimeField()
@@ -242,16 +262,3 @@ class UserStats(models.Model):
         db_table = 'user_stats'
 
 
-class UserInfo(models.Model):
-    username = models.CharField(db_column='UserName', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    name = models.CharField(db_column='Name', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    mail = models.CharField(db_column='Mail', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    department = models.CharField(db_column='Department', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    workphone = models.CharField(db_column='WorkPhone', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    homephone = models.CharField(db_column='HomePhone', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    mobile = models.CharField(db_column='Mobile', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    notes = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'userinfo'

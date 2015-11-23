@@ -52,6 +52,7 @@ class UserQuotaAdmin(admin.ModelAdmin):
 
 class UserStatsAdmin(admin.ModelAdmin):
     model = UserStats
+    list_display = ('username', 'acctsessionid', 'timestamp', 'acctinputoctets', 'acctoutputoctets')
 
 class UserInfoAdmin(admin.ModelAdmin):
     model = UserInfo

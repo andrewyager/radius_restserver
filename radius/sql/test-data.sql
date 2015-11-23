@@ -6,6 +6,9 @@ INSERT INTO `radcheck` (`id`, `username`, `attribute`, `op`, `value`)
 
 SET @disable_triggers = 1;
 
+TRUNCATE `userinfo`;
+INSERT INTO `userinfo` (`username`) VALUES ('test@testing.com');
+
 TRUNCATE `radacct`;
 INSERT INTO `radacct` (`radacctid`, `acctsessionid`, `acctuniqueid`, `UserName`, `GroupName`, `realm`, `NASIPAddress`, `NASPortId`, `nasporttype`, `AcctStartTime`, `AcctStopTime`, `AcctSessionTime`, `acctauthentic`, `connectinfo_start`, `connectinfo_stop`, `AcctInputOctets`, `AcctOutputOctets`, `CalledStationId`, `CallingStationId`, `acctterminatecause`, `servicetype`, `framedprotocol`, `FramedIPAddress`, `acctstartdelay`, `acctstopdelay`, `xascendsessionsvrkey`) VALUES
 (8986451, '0004752B', '86716ad2a8b3d327', 'test@testing.com', '', '', '114.141.96.4', '', 'ISDN', '2015-10-22 00:00:34', '2015-10-22 00:03:05', 150, 'RADIUS', '155520000', '155520000', 5571, 45599, '', 'foobar', 'Port-Error', 'Framed-User', 'PPP', '127.0.0.15', 0, 0, ''),
