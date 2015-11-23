@@ -14,8 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from rest_framework.urlpatterns import format_suffix_patterns
 from django.contrib import admin
+
+from freeradius import views as FreeRadiusView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^userdata/$', FreeRadiusView.UserDataList.as_view()),
+    url(r'^api-auth/', include('rest_framework.urls',
+		namespace='rest_framework')),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
