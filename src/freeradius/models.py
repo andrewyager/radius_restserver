@@ -11,6 +11,18 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+RADIUS_OPERATIONS = (
+    ('=', '='),
+    (':=', ':='),
+    ('==', '=='),
+    ('!=', '!='),
+    ('+=', '+='),
+    ('>', '>'),
+    ('>=', '>='),
+    ('<=', '<='),
+    ('!~', '!~'),
+    ('=*', '=*'),
+    ('!*', '!*'))
 
 class UserInfo(models.Model):
     username = models.CharField(db_column='UserName', max_length=54, primary_key=True)  # Field name made lowercase.
@@ -24,9 +36,9 @@ class UserInfo(models.Model):
 
     def __unicode__(self):
         if self.name:
-            return self.name + " ("+self.username+")"
+            return str(self.name) + " ("+str(self.username)+")"
         else:
-            return self.username
+            return str(self.username)
 
     class Meta:
         managed = False
@@ -39,7 +51,7 @@ class BadUsers(models.Model):
     admin = models.CharField(db_column='Admin', max_length=30, blank=True, null=True)  # Field name made lowercase.
 
     def __unicode__(self):
-        return self.username+" "+self.date+" "+self.reason
+        return self.username.username+" "+self.date+" "+self.reason
 
     class Meta:
         managed = False
@@ -100,11 +112,11 @@ class RadAcct(models.Model):
 class RadCheck(models.Model):
     username = models.ForeignKey(UserInfo, db_column='username', max_length=64, to_field='username')
     attribute = models.CharField(max_length=32)
-    op = models.CharField(max_length=2)
+    op = models.CharField(max_length=2, choices=RADIUS_OPERATIONS)
     value = models.CharField(max_length=253)
 
     def __unicode__(self):
-        return self.username+" "+self.attribute+self.op+self.value
+        return self.username.username+" "+str(self.attribute)+str(self.op)+str(self.value)
 
     class Meta:
         managed = False
@@ -114,7 +126,7 @@ class RadCheck(models.Model):
 class RadGroupCheck(models.Model):
     groupname = models.CharField(max_length=64)
     attribute = models.CharField(max_length=32)
-    op = models.CharField(max_length=2)
+    op = models.CharField(max_length=2, choices=RADIUS_OPERATIONS)
     value = models.CharField(max_length=253)
 
     def __unicode__(self):
@@ -128,7 +140,7 @@ class RadGroupCheck(models.Model):
 class RadGroupReply(models.Model):
     groupname = models.CharField(max_length=64)
     attribute = models.CharField(max_length=32)
-    op = models.CharField(max_length=2)
+    op = models.CharField(max_length=2, choices=RADIUS_OPERATIONS)
     value = models.CharField(max_length=253)
 
     def __unicode__(self):
@@ -168,11 +180,11 @@ class RadPostAuth(models.Model):
 class RadReply(models.Model):
     username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     attribute = models.CharField(max_length=32)
-    op = models.CharField(max_length=2)
+    op = models.CharField(max_length=2, choices=RADIUS_OPERATIONS)
     value = models.CharField(max_length=253)
 
     def __unicode__(self):
-        return self.username+" "+self.attribute+self.op+self.value
+        return self.username.username+" "+self.attribute+self.op+self.value
 
 
     class Meta:
@@ -186,7 +198,7 @@ class RadUserGroup(models.Model):
     priority = models.IntegerField()
 
     def __unicode__(self):
-        return self.username+" "+self.groupname
+        return self.username.username+" "+self.groupname
 
 
     class Meta:
