@@ -98,3 +98,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Bower Components
+frontend/src/bower_components
