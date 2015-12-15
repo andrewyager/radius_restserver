@@ -5,3 +5,5 @@ djangorestframework==3.3.1
 Markdown==2.6.4
 django-admin-bootstrapped==2.5.6
 django-bootstrap3==6.2.2
+django-cors-headers==1.1.0
+djangorestframework-jwt==1.7.2

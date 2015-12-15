@@ -26,3 +26,9 @@ django:
    - radius:radius
   volumes:
    - ./src:/usr/src/app
+frontend:
+  build: frontend/.
+  volumes:
+   - ./frontend/frontend:/data
+  ports:
+   - "82:9000"
