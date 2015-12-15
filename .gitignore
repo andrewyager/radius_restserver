@@ -103,3 +103,4 @@ target/
 frontend/frontend2/bower_components
 # Node Components
 frontend/frontend2/node_modules
+frontend/node_modules
