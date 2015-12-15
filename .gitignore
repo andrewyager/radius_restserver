@@ -101,3 +101,5 @@ target/
 
 # Bower Components
 frontend/src/bower_components
+# Node Components
+frontend/src/node_modules
