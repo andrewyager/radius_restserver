@@ -8,20 +8,20 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('LoginCtrl', function ($scope, $rootScope, $http, store, $state, API) {
-	$scope.user = {};
-	$scope.login = function() {
-	    $http({
-	      url: API+'/token/',
-	      method: 'POST',
-	      data: $scope.user
-	    }).then(function(response) {
-	      // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-	      store.set('jwt', response.data.token);
-	      $rootScope.user = $scope.user.username;
-	      $state.go('about');
-	    }, function(error) {
-	      window.alert(error.data);
-	    });
-	  };
+  .controller('LoginCtrl', function ($scope, $rootScope, $http, store, $state, API, djangoAuth) {
+    $scope.model = {'username':'','password':''};
+    $scope.complete = false;
+    $scope.login = function(formData){
+      $scope.errors = [];
+      if(!formData.$invalid){
+        djangoAuth.login($scope.model.username, $scope.model.password)
+        .then(function(data){
+            // success case
+            $state.go('home');
+        },function(data){
+	      $scope.errors = data;
+        });
+      }
+    }
   });
+

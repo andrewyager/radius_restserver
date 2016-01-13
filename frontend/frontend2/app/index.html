@@ -42,8 +42,6 @@
             <ul class="nav navbar-nav">
               <li ui-sref-class="active"><a ui-sref="home">Home</a></li>
               <li ui-sref-class="active"><a ui-sref="about">About</a></li>
-              <li ui-sref-class="active"><a ui-sref="login" ng-hide="isLoggedIn()">Login</a></li>
-              <li ui-sref-class="active"><a ui-sref="logout" ng-show="isLoggedIn()">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -98,6 +96,8 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/services/djangoAuth.js"></script>
+        <script src="scripts/controllers/logout.js"></script>
         <!-- endbuild -->
 </body>
 </html>
