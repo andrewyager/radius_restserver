@@ -19,15 +19,12 @@ angular
     'ngTouch',
     'angular-jwt',
     'angular-storage',
-    'chart.js'
+    'chart.js',
+    'djangoRESTAuth'
   ])
   .constant('API', 'http://192.168.99.100:81/api/v1')
   .config(function ($stateProvider,$urlRouterProvider,jwtInterceptorProvider,$httpProvider) {
     $urlRouterProvider.otherwise('/');
-
-    jwtInterceptorProvider.tokenGetter = function(store) {
-      return store.get('jwt');
-    };
 
     $httpProvider.interceptors.push('jwtInterceptor');
 
@@ -44,27 +41,10 @@ angular
         controller: 'LoginCtrl'
       })
       .state('logout', {
-        url: '/logout',
-        controller: function(store, $state) {
-          store.remove('jwt');
-          $state.go('login');
-        }
-      });
+        controller: "LogoutCtrl",
+      })
 
   })
-  .run(function($rootScope, $state, store, jwtHelper) {
-    $rootScope.isLoggedIn = function() {
-      if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
-        return false;
-      }
-      return true;
-    };
-    $rootScope.$on('$stateChangeStart', function(e, to) {
-      if (to.data && to.data.requiresLogin) {
-        if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
-          e.preventDefault();
-          $state.go('login');
-        }
-      }
-    });
+  .run(function($rootScope, djangoAuth) {
+      djangoAuth.initialize('//192.168.99.100:81', false);
   });

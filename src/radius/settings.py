@@ -43,6 +43,8 @@ DJANGO_APPS = (
 THIRDPARTY_APPS = (
     'markdown',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'django_admin_bootstrapped',
     'corsheaders',
     )
@@ -99,17 +101,11 @@ RADIUS_SECRET = 'password'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
 
-JWT_AUTH = {
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-}
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

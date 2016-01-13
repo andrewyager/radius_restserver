@@ -29,6 +29,7 @@ django:
 frontend:
   build: frontend/.
   volumes:
-   - ./frontend/frontend:/data
+   - ./frontend/:/data
   ports:
-   - "82:9000"
+   - "83:9000"
+  working_dir: /data/frontend2

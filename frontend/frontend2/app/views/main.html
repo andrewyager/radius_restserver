@@ -9,6 +9,8 @@
 
 <div class="row marketing">
   <h4>HTML5 Boilerplate</h4>
+  <li ui-sref-class="active" ng-hide="login_status"><a ui-sref="login" ng-hide="login_status">Login</a></li>
+  <li ng-show="login_status"><a ui-sref="logout" ng-show="login_status">Logout</a></li>
   <p>
     HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
   </p>

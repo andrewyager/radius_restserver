@@ -22,10 +22,7 @@ from freeradius import views as FreeRadiusView
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/userdata/', FreeRadiusView.UserDataList.as_view()),
-    url(r'^api/v1/auth/', include('rest_framework.urls',
-		namespace='rest_framework')),
-    url(r'^api/v1/token/', 'rest_framework_jwt.views.obtain_jwt_token'),
-    url(r'^api/v1/token/refresh/', 'rest_framework_jwt.views.refresh_jwt_token'),
+    url(r'^rest-auth/', include('rest_auth.urls'))
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
