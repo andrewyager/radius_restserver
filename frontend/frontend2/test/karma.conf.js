@@ -38,6 +38,8 @@ module.exports = function(config) {
       'bower_components/angular-jwt/dist/angular-jwt.js',
       'bower_components/Chart.js/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
+      'bower_components/amcharts/dist/amcharts/amcharts.js',
+      'bower_components/amcharts-angular/dist/amChartsDirective.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

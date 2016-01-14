@@ -1,6 +1,21 @@
-<canvas id="line" class="chart chart-line" chart-data="data"
-  chart-labels="labels" chart-legend="true" chart-series="series"
-  chart-click="onClick" >
-</canvas>
-<h4>Total data transferred for period</h4>
-{{tdata}}GB
+
+<br>
+<div class="row">
+    <div style="height: 500px; width: 100%;">
+        <am-chart id="myFirstChart" options="amChartOptions" height="100%" width="100%"></am-chart>
+    </div>
+</div>
+
+  <form name="myForm">
+    <label for="singleSelect"> Select period: </label>
+    <select name="singleSelect" ng-model="data.singleSelect">
+      <option value="option-1">Current month</option>
+      <option value="option-2">Previous month</option>
+      <option value="option-2">Last week</option>
+      <option value="option-2">Last 24 hours</option>
+    </select><br>
+   </form>
+<br>
+<h4>Total data transferred for period: 1 MILLLLLION Gigabolules!</h4>
+<br>
+<br>

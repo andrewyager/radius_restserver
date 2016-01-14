@@ -20,7 +20,8 @@ angular
     'angular-jwt',
     'angular-storage',
     'chart.js',
-    'djangoRESTAuth'
+    'djangoRESTAuth',
+    'amChartsDirective',
   ])
   .constant('API_BASE', 'http://192.168.99.100:81')
   .constant('API_EXTENSION', '/api/v1')
