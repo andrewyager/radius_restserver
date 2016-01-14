@@ -1,12 +1,12 @@
 
-angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope, API) {
+angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope, API_BASE) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {
 
         /* START CUSTOMIZATION HERE */
         // Change this to point to your Django REST Auth API
         // e.g. /api/rest-auth  (DO NOT INCLUDE ENDING SLASH)
-        'API_URL': 'http://192.168.99.100:81',
+        'API_URL': API_BASE,
         // Set use_session to true to use Django sessions to store security token.
         // Set use_session to false to store the security token locally and transmit it as a custom header.
         'use_session': true,
@@ -182,7 +182,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
             if(this.authenticated != null && !force){
                 // We have a stored value which means we can pass it back right away.
                 if(this.authenticated == false && restrict){
-                    getAuthStatus.reject("User is not logged in.");
+                    getAuthStatus.reject("UserNotLoggedIn");
                 }else{
                     getAuthStatus.resolve();
                 }
@@ -195,7 +195,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 },function(){
                     da.authenticated = false;
                     if(restrict){
-                        getAuthStatus.reject("User is not logged in.");
+                        getAuthStatus.reject("UserNotLoggedIn");
                     }else{
                         getAuthStatus.resolve();
                     }

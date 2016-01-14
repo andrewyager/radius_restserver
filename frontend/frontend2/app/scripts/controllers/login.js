@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('LoginCtrl', function ($scope, $rootScope, $http, store, $state, API, djangoAuth) {
+  .controller('LoginCtrl', function ($scope, $rootScope, $http, store, $state, djangoAuth) {
     $scope.model = {'username':'','password':''};
     $scope.complete = false;
     $scope.login = function(formData){
@@ -17,7 +17,7 @@ angular.module('frontendApp')
         djangoAuth.login($scope.model.username, $scope.model.password)
         .then(function(data){
             // success case
-            $state.go('home');
+            $state.go('main.dashboard');
         },function(data){
 	      $scope.errors = data;
         });

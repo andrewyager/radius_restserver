@@ -9,24 +9,21 @@
  */
 angular.module('frontendApp')
   .config(function($stateProvider) {
-	  $stateProvider.state('about', {
-	    url: '/about',
-	    templateUrl: 'views/about.html',
-	    controller: 'AboutCtrl',
-	    controllerAs: 'about',
-	    data: {
-	      requiresLogin: true
-	    }
+	  $stateProvider.state('main.stats', {
+	    url: '/stats',
+	    templateUrl: 'views/stats.html',
+	    controller: 'StatsCtrl',
+	    controllerAs: 'stats',
 	  });
   })
-  .controller('AboutCtrl', function (API, $http, $scope, jwtHelper, store) {
+  .controller('StatsCtrl', function (urls, $http, $scope) {
   	$scope.response = null;
   	$scope.data = [];
   	$scope.series = [];
   	$scope.labels= [];
   	$scope.tdata = 0;
     $http({
-        url: API+'/userdata.json/',
+        url: urls.API +'/userdata.json/',
         method: 'GET'
     }).then(function(datapoints) {
         $scope.labels = [];
