@@ -1,21 +1,21 @@
-
+<div class="border-top-radius border-right-radius border-left-radius border-left-radius">
 <br>
+<h4>{{ date_range }}</h4>
 <div class="row">
     <div style="height: 500px; width: 100%;">
         <am-chart id="myFirstChart" options="amChartOptions" height="100%" width="100%"></am-chart>
     </div>
 </div>
 
-  <form name="myForm">
-    <label for="singleSelect"> Select period: </label>
-    <select name="singleSelect" ng-model="data.singleSelect">
-      <option value="option-1">Current month</option>
-      <option value="option-2">Previous month</option>
-      <option value="option-2">Last week</option>
-      <option value="option-2">Last 24 hours</option>
-    </select><br>
-   </form>
+<select 
+    ng-options="item as item.label for item in period_select_items track by item.id" 
+    ng-model="period_select"
+    ng-change="period_select_change()">
+</select>
+
 <br>
 <h4>Total data transferred for period: 1 MILLLLLION Gigabolules!</h4>
 <br>
 <br>
+
+</div>
