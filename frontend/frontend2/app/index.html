@@ -16,48 +16,22 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="frontendApp">
+  <body ng-app="frontendApp" class="page-on-load">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">RADIUS Frontend</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li ui-sref-class="active"><a ui-sref="home">Home</a></li>
-              <li ui-sref-class="active"><a ui-sref="about">About</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <!-- BEGIN PAGE SPINNER -->
+    <div ng-spinner-bar class="page-spinner-bar">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
     </div>
+    <!-- END PAGE SPINNER -->
 
-    <div class="container">
-    <div ui-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
-
+    <!-- END UI VIEW START -->
+    <div ui-view class="fade-in-up"> </div>
+    <!-- END UI VIEW END -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -88,13 +62,16 @@
     <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <script src="bower_components/Chart.js/Chart.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/amcharts.js"></script>
+    <script src="bower_components/amcharts-angular/dist/amChartsDirective.js"></script>
     <!-- endbower -->
+    <script src="bower_components/amcharts/dist/amcharts/serial.js"></script>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/stats.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/services/djangoAuth.js"></script>
         <script src="scripts/controllers/logout.js"></script>

@@ -20,31 +20,57 @@ angular
     'angular-jwt',
     'angular-storage',
     'chart.js',
-    'djangoRESTAuth'
+    'djangoRESTAuth',
+    'amChartsDirective',
   ])
-  .constant('API', 'http://192.168.99.100:81/api/v1')
+  .constant('API_BASE', 'http://192.168.99.100:81')
+  .constant('API_EXTENSION', '/api/v1')
+  .service('urls',function(API_BASE, API_EXTENSION) { this.API = API_BASE + API_EXTENSION;})
   .config(function ($stateProvider,$urlRouterProvider,jwtInterceptorProvider,$httpProvider) {
     $urlRouterProvider.otherwise('/');
 
     $httpProvider.interceptors.push('jwtInterceptor');
 
     $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
+
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
       .state('logout', {
+        url: '/logout',
         controller: "LogoutCtrl",
       })
 
+    // Main abstract state
+    .state('main', {
+        abstract: true,
+        templateUrl: "views/main.html",
+        resolve: {
+            authenticated: function(djangoAuth) {
+                return djangoAuth.authenticationStatus(true);
+            },
+        },
+    })
+
   })
-  .run(function($rootScope, djangoAuth) {
-      djangoAuth.initialize('//192.168.99.100:81', false);
+  .run(function($rootScope, djangoAuth, $state, API_BASE) {
+        djangoAuth.initialize(API_BASE, false);
+
+      djangoAuth.authenticationStatus(true)
+        .then(function() {
+          $rootScope.login_status = true;
+        }, function(reason) {
+          $rootScope.login_status = false;
+        });
+
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            if (error === 'UserNotLoggedIn') {
+                event.preventDefault();
+                console.log(error);
+                $state.go('login');
+            }
+        });
+
   });
