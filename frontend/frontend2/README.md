@@ -5,6 +5,9 @@ version 0.14.0.
 
 ## Build & development
 
+Run ```npm install``` to install grunt dependencies (docker-compose run --rm frontend npm install)
+Run ```bower install``` to install app/bower dependencies (docker-compose run --rm frontend bower install)
+
 Run `grunt` for building and `grunt serve` for preview.
 
 ## Testing
