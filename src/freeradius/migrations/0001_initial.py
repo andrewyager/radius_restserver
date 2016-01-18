@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('acctsessionid', models.CharField(max_length=64)),
                 ('acctuniqueid', models.CharField(max_length=32)),
                 ('username', models.CharField(max_length=64, db_column='UserName')),
-                ('groupname', models.CharField(max_length=64, db_column='GroupName')),
+                ('groupname', models.CharField(max_length=64, db_column='GroupName', blank=True)),
                 ('realm', models.CharField(max_length=64, null=True, blank=True)),
                 ('nasipaddress', models.CharField(max_length=15, db_column='NASIPAddress')),
                 ('nasportid', models.CharField(max_length=15, null=True, db_column='NASPortId', blank=True)),

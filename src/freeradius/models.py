@@ -81,7 +81,7 @@ class RadAcct(models.Model):
     acctsessionid = models.CharField(max_length=64)
     acctuniqueid = models.CharField(max_length=32)
     username = models.ForeignKey(UserInfo, db_column='UserName', max_length=64, to_field='username')  # Field name made lowercase.
-    groupname = models.CharField(db_column='GroupName', max_length=64)  # Field name made lowercase.
+    groupname = models.CharField(db_column='GroupName', max_length=64, blank=True, null=False)  # Field name made lowercase.
     realm = models.CharField(max_length=64, blank=True, null=True)
     nasipaddress = models.CharField(db_column='NASIPAddress', max_length=15)  # Field name made lowercase.
     nasportid = models.CharField(db_column='NASPortId', max_length=15, blank=True, null=True)  # Field name made lowercase.
