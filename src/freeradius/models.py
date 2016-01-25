@@ -258,7 +258,7 @@ class UserQuota(models.Model):
     class Meta:
         managed = False
         db_table = 'user_quota'
-
+        ordering = ['-quota_date']
 
 class UserStats(models.Model):
     radacct_id = models.IntegerField()

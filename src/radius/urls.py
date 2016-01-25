@@ -22,6 +22,7 @@ from freeradius import views as FreeRadiusView
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/userdata/', FreeRadiusView.UserDataList.as_view()),
+    url(r'^api/v1/userquota/', FreeRadiusView.UserQuotaList.as_view()),
     url(r'^rest-auth/', include('rest_auth.urls'))
 ]
 

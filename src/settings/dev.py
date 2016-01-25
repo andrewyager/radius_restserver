@@ -43,6 +43,7 @@ class Dev(Configuration):
 
     LOCAL_APPS = (
         'freeradius',
+        'radauth',
         )
 
     INSTALLED_APPS = (
@@ -145,6 +146,9 @@ class Dev(Configuration):
                 messages.WARNING: 'alert-warning warning',
                 messages.ERROR: 'alert-danger error'
     }
+
+    # Custom User Model
+    AUTH_USER_MODEL = 'radauth.RadiusUser'
 
     #DEFAULT_CONTENT_TYPE = 'application/xhtml+xml'
 

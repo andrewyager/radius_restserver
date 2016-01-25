@@ -8,6 +8,7 @@ RUN apt-get install -y \
 		mysql-client libmysqlclient-dev \
 		postgresql-client libpq-dev \
 		sqlite3 \
+		git-core \
 		gcc
 
 RUN apt-get install -y freeradius-common
