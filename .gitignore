@@ -99,6 +99,9 @@ docs/_build/
 # PyBuilder
 target/
 
+#settings files that shouldn't get committed
+src/settings/production.py
+
 # Bower Components
 frontend/frontend2/bower_components
 # Node Components
