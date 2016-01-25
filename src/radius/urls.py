@@ -23,6 +23,11 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/userdata/', FreeRadiusView.UserDataList.as_view()),
     url(r'^api/v1/userquota/', FreeRadiusView.UserQuotaList.as_view()),
+    url(r'^api/v1/userinfo/', FreeRadiusView.UserInfoList.as_view()),
+    url(r'^api/v1/userbilling/', FreeRadiusView.UserBillingDetailList.as_view()),
+    url(r'^api/v1/quotausage/$', FreeRadiusView.QuotaDetail.as_view()),
+    url(r'^api/v1/quotausage/(?P<username>.+\@[a-xA-Z0-9\.]+)/$', FreeRadiusView.QuotaDetail.as_view()),
+    url(r'^api/v1/quotausage/(?P<username>.+\@.+)/(?P<period>\d+)/$', FreeRadiusView.QuotaDetail.as_view()),
     url(r'^rest-auth/', include('rest_auth.urls'))
 ]
 

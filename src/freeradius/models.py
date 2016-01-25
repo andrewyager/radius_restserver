@@ -222,18 +222,6 @@ class TotAcct(models.Model):
         managed = False
         db_table = 'totacct'
 
-
-class UserBillingDetail(models.Model):
-    username = models.OneToOneField(UserInfo, primary_key=True)
-    anniversary_day = models.IntegerField()
-    action = models.CharField(max_length=6)
-    status = models.CharField(max_length=9)
-
-    class Meta:
-        managed = False
-        db_table = 'user_billing_detail'
-
-
 class UserData(models.Model):
     username = models.ForeignKey(UserInfo, db_column='username', to_field='username')
     datain = models.BigIntegerField()
@@ -247,6 +235,51 @@ class UserData(models.Model):
         db_table = 'user_data'
         unique_together = (('username', 'data_hour', 'date'),)
         ordering = ['username', 'date', 'data_hour']
+
+class UserBillingDetail(models.Model):
+    username = models.OneToOneField(UserInfo, primary_key=True, db_column='username', to_field='username')
+    anniversary_day = models.IntegerField()
+    action = models.CharField(max_length=6)
+    status = models.CharField(max_length=9)
+
+    def get_quota_usage(self, period=0):
+        import datetime
+        from dateutil.relativedelta import relativedelta
+        anniversary = self.anniversary_day
+        today = datetime.datetime.today()
+        if period == 0:
+            # we are considering the current month
+            # in this case, we need to consider the special case
+            # where the anniversary date may be past the month end
+            # in those cases, we make the anniversary date the last day of the month
+
+            import calendar
+            month_dates = calendar.monthrange(today.year, today.month)
+            if month_dates[1] < self.anniversary_day:
+                anniversary = month_dates[1]
+
+            start_date = datetime.datetime(year = today.year, month=today.month, day=anniversary)
+            end_date = today
+
+            # if we haven't yet reached the anniversary day this month, then we
+            # need to set our start date to be last month
+            if anniversary >= today.day:
+                start_date = datetime.datetime(year = today.year, month=today.month, day=anniversary) + relativedelta(months=-1)
+        else:
+            end_date = datetime.datetime(year = today.year, month=today.month, day=anniversary) + relativedelta(months=(period-1)*-1)
+            start_date = datetime.datetime(year = today.year, month=today.month, day=anniversary) + relativedelta(months=(period)*-1)
+        
+        data = UserData.objects.filter(username=self.username, date__gt=start_date, date__lt=end_date).aggregate(
+                    total_in=models.Sum('datain'),
+                    total_out=models.Sum('dataout'),
+                    total=models.Sum('totaldata'))
+        data['start_date'] = start_date
+        data['end_date'] = end_date
+        return data
+
+    class Meta:
+        managed = False
+        db_table = 'user_billing_detail'
 
 
 class UserQuota(models.Model):

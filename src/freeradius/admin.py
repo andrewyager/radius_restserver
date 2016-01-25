@@ -39,6 +39,7 @@ class TotAcctAdmin(admin.ModelAdmin):
 
 class UserBillingDetailAdmin(admin.ModelAdmin):
     model = UserBillingDetail
+    list_display = ('username', 'anniversary_day', 'action', 'status')
 
 class UserDataAdmin(admin.ModelAdmin):
     model = UserData
