@@ -1,3 +1,3 @@
-FROM gceranto/nodejs-bower-grunt-yeoman
+FROM digitallyseamless/nodejs-bower-grunt
 
 CMD ["grunt", "serve"]
