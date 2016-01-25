@@ -9,3 +9,4 @@ django-cors-headers==1.1.0
 djangorestframework-jwt==1.7.2
 django-rest-auth
 django-configurations
+python-dateutil
