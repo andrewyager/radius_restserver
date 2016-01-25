@@ -1,11 +1,12 @@
-from configurations import Configuration
+from configurations import Configuration, values
+
+import os
+import datetime
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Dev(Configuration):
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-    import os
-    import datetime
-
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
     # Quick-start development settings - unsuitable for production

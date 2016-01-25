@@ -35,7 +35,7 @@ django-production:
    - postgres:db
    - radius:radius
   environment:
-   - DJANGO_SETTINGS:Production
+   - DJANGO_CONFIGURATION=Production
   volumes:
    - ./src:/usr/src/app
 frontend:

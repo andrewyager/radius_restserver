@@ -4,5 +4,5 @@ from .dev import Dev  # noqa
 
 try:
   from .production import Production  # noqa
-except:
+except ImportError:  
   pass
