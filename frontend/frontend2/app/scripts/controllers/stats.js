@@ -48,7 +48,7 @@ angular.module('frontendApp')
       $scope.date7DaysAgo =  $filter('date')($scope.date7DaysAgo, 'yyyy-MM-dd');
       
 
-     $scope.date_range = {fromdate: '2015-11-7', todate: '2015-11-7'};
+      $scope.date_range = {fromdate: '2015-11-7', todate: '2015-11-7'};
 
         $scope.period_select_items = [{
             id: 1,
@@ -113,7 +113,7 @@ angular.module('frontendApp')
                 theme: "light",
                 marginRight: 80,
                 valueAxes: [{
-                    title: "Bandwidth used",
+                    title: "Data used",
                     position: "left"
                 }],
             data: $scope.dataFromPromise($scope.date_range),
@@ -122,7 +122,7 @@ angular.module('frontendApp')
                     bullet: "round",
                     bulletBorderThickness: 1,
                     hideBulletsCount: 30,
-                    title: "download",
+                    title: "upload",
                     valueField: "datain",
                     fillAlphas: 0.0,
                     type: "smoothedLine",
@@ -134,7 +134,7 @@ angular.module('frontendApp')
                     bullet: "round",
                     bulletBorderThickness: 1,
                     hideBulletsCount: 30,
-                    title: "upload",
+                    title: "download",
                     valueField: "dataout",
                     fillAlphas: 0.0,
                     type: "smoothedLine",
@@ -190,7 +190,7 @@ angular.module('frontendApp')
                         console.log(dataitem);
                         console.log(ref);
                         var date_split = dataitem.date.split("-");
-                        var DateNew = new Date(date_split[0], date_split[1], date_split[2], dataitem.data_hour, 0, 0, 0);
+                        var DateNew = new Date(date_split[0], date_split[1]-1, date_split[2], dataitem.data_hour, 0, 0, 0);
                         console.log(DateNew);
                         return DateNew;
                     },
@@ -198,11 +198,30 @@ angular.module('frontendApp')
                 legend: {
                     align: "left",
                     equalWidths: false,
-                    periodValueText: "[[value.sum]]GB",
+                    periodValueText: "[[value.sum]]Bytes",
                     valueAlign: "left",
                     valueText: "[[value]]([[percents]]%)",
                     valueWidth: 100
                 },
+                prefixesOfBigNumbers: [
+                    {
+                        "number": 1024,
+                        "prefix": "k"
+                    },
+                    {
+                        "number": 1024^2,
+                        "prefix": "M"
+                    },
+                    {
+                        "number": 1024^3,
+                        "prefix": "G"
+                    },
+                    {
+                        "number": 1024^4,
+                        "prefix": "T"
+                    },
+                ],
+                usePrefixes: true,
                 creditsPosition: "top-left",
             }
 
