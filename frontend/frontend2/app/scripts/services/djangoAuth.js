@@ -28,6 +28,9 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 params = params,
                 data = args.data || {};
             // Fire the request, as configured.
+            if (args.url=="/rest-auth/login/") {
+                $http.defaults.headers.common.Authorization = null;
+            }
             $http({
                 url: url,
                 withCredentials: this.use_session,
