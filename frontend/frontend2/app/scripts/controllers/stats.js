@@ -223,6 +223,12 @@ angular.module('frontendApp')
                 ],
                 usePrefixes: true,
                 creditsPosition: "top-left",
+                "export": {
+                    "enabled": true,
+                    "libs": {
+                      "path": "../libs/"
+                    }
+                },
             }
 
         }, 1000);

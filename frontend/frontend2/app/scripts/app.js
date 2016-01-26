@@ -17,19 +17,15 @@ angular
     'ui.router',
     'ngSanitize',
     'ngTouch',
-    'angular-jwt',
     'angular-storage',
-    'chart.js',
     'djangoRESTAuth',
     'amChartsDirective',
   ])
   .constant('API_BASE', 'http://192.168.99.100:82')
   .constant('API_EXTENSION', '/api/v1')
   .service('urls',function(API_BASE, API_EXTENSION) { this.API = API_BASE + API_EXTENSION;})
-  .config(function ($stateProvider,$urlRouterProvider,jwtInterceptorProvider,$httpProvider) {
+  .config(function ($stateProvider,$urlRouterProvider,$httpProvider) {
     $urlRouterProvider.otherwise('/');
-
-    $httpProvider.interceptors.push('jwtInterceptor');
 
     $stateProvider
 
