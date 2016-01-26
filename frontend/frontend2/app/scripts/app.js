@@ -36,6 +36,17 @@ angular
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
+        resolve: {
+            authenticated: function(djangoAuth, $state) {
+                return djangoAuth.authenticationStatus(true)
+                    .then(function() {
+                        console.log('Already logged in!');
+                        $state.go('main.dashboard');
+                    }, function(reason) {
+                        return;
+                });
+            },
+        },
         controller: 'LoginCtrl'
       })
       .state('logout', {
