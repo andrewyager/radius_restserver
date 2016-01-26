@@ -185,6 +185,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
             if(this.authenticated != null && !force){
                 // We have a stored value which means we can pass it back right away.
                 if(this.authenticated == false && restrict){
+                    $cookies.remove('token');
                     getAuthStatus.reject("UserNotLoggedIn");
                 }else{
                     getAuthStatus.resolve();
@@ -198,6 +199,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 },function(){
                     da.authenticated = false;
                     if(restrict){
+                        $cookies.remove('token');
                         getAuthStatus.reject("UserNotLoggedIn");
                     }else{
                         getAuthStatus.resolve();
