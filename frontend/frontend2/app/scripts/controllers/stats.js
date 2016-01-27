@@ -48,7 +48,7 @@ angular.module('frontendApp')
       $scope.date7DaysAgo =  $filter('date')($scope.date7DaysAgo, 'yyyy-MM-dd');
       
 
-      $scope.date_range = {fromdate: '2015-11-7', todate: '2015-11-7'};
+      //$scope.date_range = {fromdate: $scope.firstDayThisMonth, todate: $scope.dateCurrent};
 
         $scope.period_select_items = [{
             id: 1,
@@ -76,13 +76,13 @@ angular.module('frontendApp')
             console.log('period_select_change selected: ' + $scope.period_select.date_range.fromdate);
             $scope.date_range = $scope.period_select.date_range;
             $scope.dataFromPromise($scope.date_range).then(function(data) {
-                console.log('updated data: ');
-                console.log(data);
                 $scope.$broadcast('amCharts.updateData', data, 'myFirstChart');
             }, function(reason) {
                 console.log('Chart update failed: ' + reason);
             });
         };
+
+
 
       $scope.dataFromPromise = function(params) {
             var deferred = $q.defer();
@@ -98,13 +98,6 @@ angular.module('frontendApp')
 
             return deferred.promise;
         };
-
-        this.awesomeThings = [
-          'HTML5 Boilerplate',
-          'AngularJS',
-          'Karma'
-        ];
-
 
         $scope.amChartOptions = $timeout(function() {
             return {
@@ -158,7 +151,7 @@ angular.module('frontendApp')
                     graph: "g1",
                     oppositeAxis: false,
                     offset:30,
-                    scrollbarHeight: 80,
+                    scrollbarHeight: 25,
                     backgroundAlpha: 0,
                     selectedBackgroundAlpha: 0.1,
                     selectedBackgroundColor: "#888888",
@@ -184,14 +177,9 @@ angular.module('frontendApp')
                     minPeriod: "mm",
                     parseDates: true,
                     dateFormats: {period:'mm',format:'JJ:NN'},
-                    categoryFunction: function (cvalue, dataitem, ref) {
-                        console.log('categoryFunction:');
-                        console.log(cvalue);
-                        console.log(dataitem);
-                        console.log(ref);
+                    categoryFunction: function (cvalue, dataitem) {
                         var date_split = dataitem.date.split("-");
                         var DateNew = new Date(date_split[0], date_split[1]-1, date_split[2], dataitem.data_hour, 0, 0, 0);
-                        console.log(DateNew);
                         return DateNew;
                     },
                 },
@@ -223,15 +211,19 @@ angular.module('frontendApp')
                 ],
                 usePrefixes: true,
                 creditsPosition: "top-left",
-                "export": {
-                    "enabled": true,
-                    "libs": {
-                      "path": "../libs/"
-                    }
-                },
+                export: {
+                    top: 55,
+                    right: 77,
+                    buttonColor: '#EFEFEF',
+                    buttonRollOverColor:'#DDDDDD',
+                    exportPNG:true,
+                    exportJPG:true,
+                    exportPDF:true,
+                    exportSVG:true
+                }
             };
 
-        }, 1000);
+        }, 0);
 
 
   });
