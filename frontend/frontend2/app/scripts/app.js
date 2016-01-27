@@ -24,7 +24,7 @@ angular
   .constant('API_BASE', 'http://192.168.99.100:82')
   .constant('API_EXTENSION', '/api/v1')
   .service('urls',function(API_BASE, API_EXTENSION) { this.API = API_BASE + API_EXTENSION;})
-  .config(function ($stateProvider,$urlRouterProvider,$httpProvider) {
+  .config(function ($stateProvider,$urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
@@ -38,7 +38,7 @@ angular
                     .then(function() {
                         console.log('Already logged in!');
                         $state.go('main.dashboard');
-                    }, function(reason) {
+                    }, function() {
                         return;
                 });
             },
@@ -59,7 +59,7 @@ angular
                 return djangoAuth.authenticationStatus(true);
             },
         },
-    })
+    });
 
   })
   .run(function($rootScope, djangoAuth, $state, API_BASE) {
@@ -68,7 +68,7 @@ angular
       djangoAuth.authenticationStatus(true)
         .then(function() {
           $rootScope.login_status = true;
-        }, function(reason) {
+        }, function() {
           $rootScope.login_status = false;
         });
 

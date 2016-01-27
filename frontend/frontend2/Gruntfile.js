@@ -1,3 +1,4 @@
+(function () {
 // Generated on 2015-11-24 using generator-angular 0.14.0
 'use strict';
 
@@ -132,7 +133,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          jshintrc: 'test/.jshintrc'
+          jshintrc: '.jshintrc'
         },
         src: ['test/spec/{,*/}*.js']
       }
@@ -481,3 +482,4 @@ module.exports = function (grunt) {
     'build'
   ]);
 };
+}());

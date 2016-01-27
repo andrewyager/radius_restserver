@@ -14,9 +14,9 @@ angular.module('frontendApp')
         templateUrl: 'views/dashboard.html',
         controller: 'DashBoardCtrl',
         controllerAs: 'main'
-      })
+      });
   })
-  .controller('DashBoardCtrl', function (djangoAuth, $scope) {
+  .controller('DashBoardCtrl', function () {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',

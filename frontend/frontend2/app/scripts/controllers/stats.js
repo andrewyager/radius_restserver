@@ -76,13 +76,13 @@ angular.module('frontendApp')
             console.log('period_select_change selected: ' + $scope.period_select.date_range.fromdate);
             $scope.date_range = $scope.period_select.date_range;
             $scope.dataFromPromise($scope.date_range).then(function(data) {
-                console.log('updated data: ')
-                console.log(data)
+                console.log('updated data: ');
+                console.log(data);
                 $scope.$broadcast('amCharts.updateData', data, 'myFirstChart');
             }, function(reason) {
-                console.log('Chart update failed: ' + reason)
+                console.log('Chart update failed: ' + reason);
             });
-        }
+        };
 
       $scope.dataFromPromise = function(params) {
             var deferred = $q.defer();
@@ -209,15 +209,15 @@ angular.module('frontendApp')
                         "prefix": "k"
                     },
                     {
-                        "number": 1024^2,
+                        "number": 1048576,
                         "prefix": "M"
                     },
                     {
-                        "number": 1024^3,
+                        "number": 1073741824,
                         "prefix": "G"
                     },
                     {
-                        "number": 1024^4,
+                        "number": 1099511627776,
                         "prefix": "T"
                     },
                 ],
@@ -229,7 +229,7 @@ angular.module('frontendApp')
                       "path": "../libs/"
                     }
                 },
-            }
+            };
 
         }, 1000);
 

@@ -1,3 +1,4 @@
+'use strict';
 
 angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope, API_BASE) {
     // AngularJS will instantiate a singleton by calling "new" on this function
@@ -20,7 +21,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 $http.defaults.headers.common.Authorization = 'Token ' + $cookies.get('token');
             }
             // Continue
-            params = args.params || {}
+            params = args.params || {};
             args = args || {};
             var deferred = $q.defer(),
                 url = this.API_URL + args.url,
@@ -28,7 +29,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 params = params,
                 data = args.data || {};
             // Fire the request, as configured.
-            if (args.url=="/rest-auth/login/") {
+            if (args.url==="/rest-auth/login/") {
                 $http.defaults.headers.common.Authorization = null;
             }
             $http({
@@ -39,7 +40,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 params: params,
                 data: data
             })
-            .success(angular.bind(this,function(data, status, headers, config) {
+            .success(angular.bind(this,function(data, status) {
                 deferred.resolve(data, status);
             }))
             .error(angular.bind(this,function(data, status, headers, config) {
@@ -48,19 +49,19 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 if(data){
                     data.status = status;
                 }
-                if(status == 0){
-                    if(data == ""){
+                if(status === 0){
+                    if(data === ""){
                         data = {};
-                        data['status'] = 0;
-                        data['non_field_errors'] = ["Could not connect. Please try again."];
+                        data.status = 0;
+                        data.non_field_errors = ["Could not connect. Please try again."];
                     }
                     // or if the data is null, then there was a timeout.
-                    if(data == null){
+                    if(data === null){
                         // Inject a non field error alerting the user
                         // that there's been a timeout error.
                         data = {};
-                        data['status'] = 0;
-                        data['non_field_errors'] = ["Server timed out. Please try again."];
+                        data.status = 0;
+                        data.non_field_errors = ["Server timed out. Please try again."];
                     }
                 }
                 deferred.reject(data, status, headers, config);
@@ -73,7 +74,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                 'password1':password1,
                 'password2':password2,
                 'email':email
-            }
+            };
             data = angular.extend(data,more);
             return this.request({
                 'method': "POST",
@@ -104,7 +105,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
             return this.request({
                 'method': "POST",
                 'url': "/rest-auth/logout/"
-            }).then(function(data){
+            }).then(function(){
                 delete $http.defaults.headers.common.Authorization;
                 $cookies.remove('token');
                 djangoAuth.authenticated = false;
@@ -174,17 +175,17 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
             // Set force to true to ignore stored value and query API
             restrict = restrict || false;
             force = force || false;
-            if(this.authPromise == null || force){
+            if(this.authPromise === null || force){
                 this.authPromise = this.request({
                     'method': "GET",
                     'url': "/rest-auth/user/"
-                })
+                });
             }
             var da = this;
             var getAuthStatus = $q.defer();
-            if(this.authenticated != null && !force){
+            if(this.authenticated !== null && !force){
                 // We have a stored value which means we can pass it back right away.
-                if(this.authenticated == false && restrict){
+                if(this.authenticated === false && restrict){
                     $cookies.remove('token');
                     getAuthStatus.reject("UserNotLoggedIn");
                 }else{
@@ -214,6 +215,6 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
             return this.authenticationStatus();
         }
 
-    }
+    };
     return service;
   });

@@ -15,13 +15,13 @@ angular.module('frontendApp')
       $scope.errors = [];
       if(!formData.$invalid){
         djangoAuth.login($scope.model.username, $scope.model.password)
-        .then(function(data){
-            // success case
-            $state.go('main.dashboard');
+        .then(function(){
+          // success case
+          $state.go('main.dashboard');
         },function(data){
-	      $scope.errors = data;
+	        $scope.errors = data;
         });
       }
-    }
+    };
   });
 
