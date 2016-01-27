@@ -102,9 +102,10 @@ angular.module('frontendApp')
         $scope.amChartOptions = $timeout(function() {
             return {
                 type: "serial",
-                pathToImages: 'https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.13.0/images/',
+                pathToImages: 'bower_components/amcharts/dist/amcharts/images/',
                 theme: "light",
-                marginRight: 80,
+                marginTop: 10,
+                marginRight: 40,
                 valueAxes: [{
                     title: "Data used",
                     position: "left"
@@ -212,14 +213,7 @@ angular.module('frontendApp')
                 usePrefixes: true,
                 creditsPosition: "top-left",
                 export: {
-                    top: 55,
-                    right: 77,
-                    buttonColor: '#EFEFEF',
-                    buttonRollOverColor:'#DDDDDD',
-                    exportPNG:true,
-                    exportJPG:true,
-                    exportPDF:true,
-                    exportSVG:true
+                    "enabled": true
                 }
             };
 

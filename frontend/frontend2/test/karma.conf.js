@@ -37,12 +37,7 @@ module.exports = function(config) {
       'bower_components/a0-angular-storage/dist/angular-storage.js',
       'bower_components/amcharts/dist/amcharts/amcharts.js',
       'bower_components/amcharts/dist/amcharts/serial.js',
-      'bower_components/amcharts/dist/amcharts/exporting/amexport.js',
-      'bower_components/amcharts/dist/amcharts/exporting/rgbcolor.js',
-      'bower_components/amcharts/dist/amcharts/exporting/jspdf.js',
-      'bower_components/amcharts/dist/amcharts/exporting/jspdf.plugin.addimage.js',
-      'bower_components/amcharts/dist/amcharts/exporting/filesaver.js',
-      'bower_components/amcharts/dist/amcharts/exporting/canvg.js',
+      'bower_components/amcharts/dist/amcharts/plugins/export/export.js',
       'bower_components/amcharts-angular/dist/amChartsDirective.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
