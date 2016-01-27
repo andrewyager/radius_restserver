@@ -96,6 +96,7 @@ angular.module('djangoRESTAuth', ['ng']).service('djangoAuth', function djangoAu
                     $http.defaults.headers.common.Authorization = 'Token ' + data.key;
                     $cookies.put('token', data.key);
                 }
+                $rootScope.username=username;
                 djangoAuth.authenticated = true;
                 $rootScope.$broadcast("djangoAuth.logged_in", data);
             });

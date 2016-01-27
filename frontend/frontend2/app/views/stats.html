@@ -1,5 +1,33 @@
 <div class="border-top-radius border-right-radius border-left-radius border-left-radius">
 <br>
+<div class="row">
+<h1>Your usage statistics</h1>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-7" ng-show="(quota&&usageperiod.current)">
+    <div style="height: 200px; width: 100%;">
+     <am-chart id="quotaGraphChart" options="quotaGraph" height="100%" width="100%"></am-chart>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-5" style="text-align: center;" ng-init="loadData()">
+    <div ng-show="anniversary && anniversary !== "Unknown"">
+    	Your billing anniversary date
+    	<h4>{{anniversary | ordinal}} of the month</h4>
+      <hr />
+    </div>
+    <div ng-show="usageperiod.current.total">
+    	<h4>
+      {{ usageperiod.current.total/1024/1024/1024 | number : 3 }}GB of {{quota}}GB</h4>
+  	  used this period.
+      <hr />
+    </div>
+    <div ng-show="usageperiod.previous">
+      Usage for last period: {{ usageperiod.previous.total/1024/1024/1024 | number : 3 }} GB<br />
+      Your service is currently {{ status }}.
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
 <h4>Data transferred from {{ date_range.fromdate | date : short }} to {{ date_range.todate | date : short }}</h4>
 <div class="row">
     <div style="height: 500px; width: 100%;">

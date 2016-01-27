@@ -20,6 +20,7 @@ angular
     'angular-storage',
     'djangoRESTAuth',
     'amChartsDirective',
+    'ordinal'
   ])
   .constant('API_BASE', 'http://192.168.99.100:82')
   .constant('API_EXTENSION', '/api/v1')

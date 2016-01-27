@@ -72,6 +72,184 @@ angular.module('frontendApp').config(function($stateProvider) {
             console.log('Chart update failed: ' + reason);
         });
     };
+    $scope.usageperiod = {};
+    $scope.quotaDataForGraph = function() {
+        var data = [];
+        var percentage, color, used_data, td, rd;
+        if ($scope.usageperiod.current && $scope.quota) {
+            used_data = $scope.usageperiod.current.total/1024/1024/1024;
+            percentage = used_data/$scope.quota;
+            if (percentage<0.8) {
+                color = "#008000";
+            } else if (percentage < 1.0) {
+                color = "#ff8000";
+            } else {
+                color = "#cb1919";
+            }
+            td = used_data.toFixed(3);
+            rd = $scope.quota - td;
+            if (percentage<0.02) {
+                td = (0.02*rd).toFixed(3);
+                rd = rd - td;
+            }
+            if (rd<0) {
+                rd = 0;
+            }
+            data[0] = {
+                "category": "This Period",
+                "total_data": td,
+                "remaining_data": rd,
+                "fill-color": color
+            };
+            data[1] = {
+                "category": "Last Period",
+                "total_data": 0
+            };
+        }
+        if ($scope.usageperiod.previous) {
+            used_data = $scope.usageperiod.previous.total/1024/1024/1024;
+            percentage = used_data/$scope.quota;
+            console.log(used_data, $scope.quota, percentage);
+            if (percentage<0.8) {
+                color = "#008000";
+            } else if (percentage < 1.0) {
+                color = "#ff8000";
+            } else {
+                color = "#cb1919";
+            }
+            td = used_data.toFixed(3);
+            rd = $scope.quota - td;
+            if (rd<0) {
+                rd = 0;
+            }
+            data[1] = {
+                "category": "Last Period",
+                "total_data": td,
+                "remaining_data": rd,
+                "fill-color": color
+            };
+        }
+        return data;
+    };
+
+    $scope.quotaGraph = $timeout(function() {
+        return {
+            "type": "serial",
+            "categoryField": "category",
+            data: $scope.quotaDataForGraph(),
+            "rotate": true,
+            "startDuration": 1,
+            "theme": "light",
+            "graphs": [
+                {
+                    "fillAlphas": 1,
+                    "fillColorsField": "fill-color",
+                    "gapPeriod": 0,
+                    "id": "used_data",
+                    "lineThickness": 0,
+                    "type": "column",
+                    "valueField": "total_data",
+                    "showBalloon": true,
+                    "valueAxis": "DataUsage",
+                    "title": "Consumed Data"
+                },
+                {
+                    "fillAlphas": 0.8,
+                    "fillColors": "#BBBBBB",
+                    "id": "remaining_data",
+                    "type": "column",
+                    "lineThickness": 0,
+                    "valueAxis": "DataUsage",
+                    "showBalloon": false,
+                    "valueField": "remaining_data",
+                    "title": "Remaining Data"
+                }
+            ],
+            "valueAxes": [
+                {
+                    "id": "DataUsage",
+                    "minimum": 0,
+                    "stackType": "100%",
+                    "labelsEnabled": false
+                }
+            ]
+        };
+    }, 0);
+
+    $scope.loadData = function(params) {
+        $http({
+            url: urls.API + '/userquota.json/',
+            method: 'GET',
+            params: params
+        }).success(function(quotalist) {
+            if (quotalist.length>0) {
+                $scope.quota = quotalist[0].quota/1024/1024/1024;
+            } else {
+                $scope.quota = "500GB";
+            }
+        }).error(function() {
+            $scope.quota = "Unknown";
+        });
+        // get billing info
+        $http({
+            url: urls.API + '/userbilling.json/',
+            method: 'GET',
+            params: params
+        }).success(function(billingdata) {
+            if (billingdata.length>0) {
+                $scope.anniversary = billingdata[0].anniversary_day;
+                $scope.excessaction = billingdata[0].action;
+                $scope.service_status = billingdata[0].status;
+                $scope.username = billingdata[0].username;
+                if ($scope.excessaction === "shape" && $scope.service_status === "exceed") {
+                    $scope.status = "shaped";
+                } else {
+                    $scope.status = "not shaped";
+                }
+                // get data for this period
+                $http({
+                    url: urls.API + '/quotausage.json/',
+                    method: 'GET',
+                    params: params
+                }).success(function(usage) {
+                    if (usage.total) {
+                        $scope.usageperiod.current = usage;
+                    } else {
+                        $scope.usageperiod.current = {
+                            total_out:0,
+                            total_in:0,
+                            total:0
+                        };
+                    }
+                    var data=$scope.quotaDataForGraph();
+                    $scope.$broadcast('amCharts.updateData', data, 'quotaGraphChart');
+                }).error(function() {
+                    $scope.anniversary = "Unknown";
+                    $scope.excessaction = "shape";
+                });
+
+                $http({
+                    url: urls.API + '/quotausage/'+$scope.username+'/1.json/',
+                    method: 'GET',
+                    params: params
+                }).success(function(usage) {
+                    if (usage.total) {
+                        $scope.usageperiod.previous = usage;
+                        var data=$scope.quotaDataForGraph();
+                        $scope.$broadcast('amCharts.updateData', data, 'quotaGraphChart');
+                    }
+                });
+            } else {
+                $scope.anniversary = "1";
+                $scope.excessaction = "charge excess";
+                $scope.service_status = "normal";
+            }
+        }).error(function() {
+            $scope.anniversary = "Unknown";
+            $scope.excessaction = "shape";
+        });
+
+    };
     $scope.dataFromPromise = function(params) {
         var deferred = $q.defer();
         $http({
