@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-md-5" style="text-align: center;" ng-init="loadData()">
-    <div ng-show="anniversary && anniversary !== "Unknown"">
+    <div ng-show="(anniversary && anniversary !== 'Unknown')">
     	Your billing anniversary date
     	<h4>{{anniversary | ordinal}} of the month</h4>
       <hr />

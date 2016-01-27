@@ -75,6 +75,12 @@ angular.module('frontendApp').config(function($stateProvider) {
     $scope.usageperiod = {};
     $scope.quotaDataForGraph = function() {
         var data = [];
+        data[0] = {
+            "category": "This Period",
+            "total_data": 0,
+            "remaining_data": 0,
+            "fill-color": "#FFFFFF"
+        };
         var percentage, color, used_data, td, rd;
         if ($scope.usageperiod.current && $scope.quota) {
             used_data = $scope.usageperiod.current.total/1024/1024/1024;
@@ -103,13 +109,14 @@ angular.module('frontendApp').config(function($stateProvider) {
             };
             data[1] = {
                 "category": "Last Period",
-                "total_data": 0
+                "total_data": 0,
+                "remaining_data": 0,
+                "fill-color": "#000000"
             };
         }
         if ($scope.usageperiod.previous) {
             used_data = $scope.usageperiod.previous.total/1024/1024/1024;
             percentage = used_data/$scope.quota;
-            console.log(used_data, $scope.quota, percentage);
             if (percentage<0.8) {
                 color = "#008000";
             } else if (percentage < 1.0) {
@@ -283,7 +290,6 @@ angular.module('frontendApp').config(function($stateProvider) {
                 valueField: "datain",
                 fillAlphas: 0.0,
                 type: "smoothedLine",
-                lineColor: "#FF2600",
                 useLineColorForBulletBorder: true,
             }, {
                 valueAxis: "v2",
@@ -294,7 +300,6 @@ angular.module('frontendApp').config(function($stateProvider) {
                 valueField: "dataout",
                 fillAlphas: 0.0,
                 type: "smoothedLine",
-                lineColor: "#3484CA",
                 useLineColorForBulletBorder: true,
             }, {
                 valueAxis: "v3",
@@ -305,7 +310,6 @@ angular.module('frontendApp').config(function($stateProvider) {
                 valueField: "totaldata",
                 fillAlphas: 0.1,
                 type: "smoothedLine",
-                lineColor: "#5ACE69",
                 useLineColorForBulletBorder: true,
             }],
             chartScrollbar: {
@@ -315,19 +319,16 @@ angular.module('frontendApp').config(function($stateProvider) {
                 scrollbarHeight: 25,
                 backgroundAlpha: 0,
                 selectedBackgroundAlpha: 0.1,
-                selectedBackgroundColor: "#888888",
                 graphFillAlpha: 0,
                 graphLineAlpha: 0.5,
                 selectedGraphFillAlpha: 0,
                 selectedGraphLineAlpha: 1,
                 autoGridCount: true,
-                color: "#AAAAAA"
             },
             chartCursor: {
                 valueLineEnabled: true,
                 valueLineBalloonEnabled: true,
                 cursorAlpha: 1,
-                cursorColor: "#258cbb",
                 limitToGraph: "g1",
                 valueLineAlpha: 0.2
             },

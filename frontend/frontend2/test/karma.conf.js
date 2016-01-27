@@ -38,6 +38,8 @@ module.exports = function(config) {
       'bower_components/amcharts/dist/amcharts/amcharts.js',
       'bower_components/amcharts/dist/amcharts/serial.js',
       'bower_components/amcharts/dist/amcharts/plugins/export/export.js',
+      'bower_components/amcharts/dist/amcharts/themes/light.js',
+      'bower_components/amcharts/dist/amcharts/themes/dark.js',
       'bower_components/amcharts-angular/dist/amChartsDirective.js',
       'bower_components/angularjs-ordinal-filter/ordinal-browser.js',
       'bower_components/angular-mocks/angular-mocks.js',

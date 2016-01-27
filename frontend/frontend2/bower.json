@@ -35,7 +35,9 @@
         "dist/amcharts/amcharts.js",
         "dist/amcharts/serial.js",
         "dist/amcharts/plugins/export/export.js",
-        "dist/amcharts/plugins/export/export.css"
+        "dist/amcharts/plugins/export/export.css",
+        "dist/amcharts/themes/light.js",
+        "dist/amcharts/themes/dark.js"
       ]
     }
   }
