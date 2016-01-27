@@ -1,2 +1,10 @@
 - service: radius
-  command: /bin/bash /usr/src/build/start-radius.sh
+  command: /bin/bash /usr/src/build/test-radius.sh
+- service: frontend
+  command: npm install
+  command: bower install
+  command: grunt jshint
+- service: frontend
+  command: npm install
+  command: bower install
+  command: grunt test

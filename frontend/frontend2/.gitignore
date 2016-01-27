@@ -7,6 +7,5 @@ bower_components
 .editorconfig
 .gitattributes
 .jscsrc
-.jshintrc
 .travis.yml
 .yo-rc.json
