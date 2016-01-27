@@ -11,6 +11,7 @@ RUN mkdir -p /usr/src/build
 RUN mkdir /usr/src/build/sql
 COPY ./sql/radius-structure.sql /usr/src/build/sql/radius-structure.sql
 COPY ./src/start-radius.sh /usr/src/build/start-radius.sh
+COPY ./src/test-radius.sh /usr/src/build/test-radius.sh
 
 COPY ./config/radiusd.conf /etc/freeradius/radiusd.conf
 COPY ./config/sql.conf /etc/freeradius/sql.conf
