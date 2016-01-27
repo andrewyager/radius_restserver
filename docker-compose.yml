@@ -26,14 +26,12 @@ django:
    - radius:radius
   volumes:
    - ./src:/usr/src/app
-django-production:
+djangoproduction:
   build: .
   ports:
     - "82:8000"
   links:
-   - mysqldb:mysqldb
    - postgres:db
-   - radius:radius
   environment:
    - DJANGO_CONFIGURATION=Production
   volumes:
