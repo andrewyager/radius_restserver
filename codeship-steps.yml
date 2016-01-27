@@ -1,0 +1,2 @@
+- service: radius
+  command: /bin/bash /usr/src/build/start-radius.sh
