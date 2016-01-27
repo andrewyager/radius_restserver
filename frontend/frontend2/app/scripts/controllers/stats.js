@@ -88,7 +88,6 @@ angular.module('frontendApp').config(function($stateProvider) {
     $scope.amChartOptions = $timeout(function() {
         return {
             type: "serial",
-            pathToImages: 'bower_components/amcharts/dist/amcharts/images/',
             theme: "light",
             marginTop: 10,
             marginRight: 40,
