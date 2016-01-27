@@ -31,4 +31,4 @@ fi
 #do something about initialising the config
 
 /usr/sbin/freeradius -f -X -C
-return $?
+exit $?
