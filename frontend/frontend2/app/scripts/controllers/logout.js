@@ -9,7 +9,7 @@
  */
 angular.module('frontendApp')
   .controller('LogoutCtrl', function (djangoAuth, $state, $scope) {
-    djangoAuth.logout();
-    $scope.loggedout=true;
-    $state.go('login');
+    djangoAuth.logout().then(function() {
+	    $state.go('login');
+    });
   });
