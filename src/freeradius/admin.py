@@ -50,6 +50,7 @@ class UserDataAdmin(admin.ModelAdmin):
 
 class UserQuotaAdmin(admin.ModelAdmin):
     model = UserQuota
+    list_display = ('username', 'quota_date', 'quota')
 
 class UserStatsAdmin(admin.ModelAdmin):
     model = UserStats
