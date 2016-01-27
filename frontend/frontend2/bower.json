@@ -14,7 +14,7 @@
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.5",
     "a0-angular-storage": "~0.0.13",
-    "amcharts-angular": "*"
+    "amcharts-angular": "andrewyager/amCharts-Angular"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -27,6 +27,18 @@
         "less/bootstrap.less",
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
+      ]
+    },
+    "amcharts": {
+      "main": [
+        "dist/amcharts/amcharts.js",
+        "dist/amcharts/serial.js",
+        "dist/amcharts/exporting/amexport.js",
+        "dist/amcharts/exporting/rgbcolor.js",
+        "dist/amcharts/exporting/jspdf.js",
+        "dist/amcharts/exporting/jspdf.plugin.addimage.js",
+        "dist/amcharts/exporting/filesaver.js",
+        "dist/amcharts/exporting/canvg.js"
       ]
     }
   }
