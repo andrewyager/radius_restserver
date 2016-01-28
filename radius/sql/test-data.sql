@@ -1133,4 +1133,14 @@ INSERT INTO `user_data` (`username`, `datain`, `dataout`, `totaldata`, `data_hou
 ('test@testing.com', 234447, 425801, 660248, 23, '2015-11-07'),
 ('test@testing.com', 101779, 151184, 252963, 23, '2015-11-08');
 
+TRUNCATE `user_billing_detail`;
+
+INSERT INTO `user_billing_detail` (`username`, `anniversary_day`, `action`, `status`) VALUES
+('test@testing.com', 8, 'shape', 'normal');
+
+TRUNCATE `user_quota`;
+
+INSERT INTO `user_quota` (`username`, `quota_date`, `quota`) VALUES
+('test@testing.com', '2015-09-17 00:00:00', 1073741824000),
+
 SET @disable_triggers = NULL;
