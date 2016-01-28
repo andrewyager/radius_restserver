@@ -268,8 +268,10 @@ class UserBillingDetail(models.Model):
         else:
             end_date = datetime.datetime(year = today.year, month=today.month, day=anniversary) + relativedelta(months=(period-1)*-1)
             start_date = datetime.datetime(year = today.year, month=today.month, day=anniversary) + relativedelta(months=(period)*-1)
-        
-        data = UserData.objects.filter(username=self.username, date__gt=start_date, date__lt=end_date).aggregate(
+        import sys
+        print >>sys.stderr, start_date, end_date
+
+        data = UserData.objects.filter(username=self.username, date__gt=start_date, date__lte=end_date).aggregate(
                     total_in=models.Sum('datain'),
                     total_out=models.Sum('dataout'),
                     total=models.Sum('totaldata'))
