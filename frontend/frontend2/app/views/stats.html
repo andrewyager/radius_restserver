@@ -15,9 +15,9 @@
     	<h4>{{anniversary | ordinal}} of the month</h4>
       <hr />
     </div>
-    <div ng-show="usageperiod.current.total">
+    <div ng-show="usageperiod.current">
     	<h4>
-      {{ usageperiod.current.total/1024/1024/1024 | number : 3 }}GB of {{quota}}GB</h4>
+      {{ usageperiod.current.total/1024.0/1024/1024 | number : 3 }}GB of {{quota}}GB</h4>
   	  used this period.
       <hr />
     </div>
