@@ -4,10 +4,21 @@ INSERT INTO `radcheck` (`id`, `username`, `attribute`, `op`, `value`)
 	VALUES
 	(NULL, 'test@testing.com', 'Cleartext-Password', ':=', 'testing123');
 
-SET @disable_triggers = 1;
-
 TRUNCATE `userinfo`;
 INSERT INTO `userinfo` (`username`) VALUES ('test@testing.com');
+
+TRUNCATE `user_billing_detail`;
+
+INSERT INTO `user_billing_detail` (`username`, `anniversary_day`, `action`, `status`) VALUES
+('test@testing.com', 8, 'shape', 'normal');
+
+TRUNCATE `user_quota`;
+
+INSERT INTO `user_quota` (`username`, `quota_date`, `quota`) VALUES
+('test@testing.com', '2015-09-17 00:00:00', 1073741824000);
+
+
+SET @disable_triggers = 1;
 
 TRUNCATE `radacct`;
 INSERT INTO `radacct` (`radacctid`, `acctsessionid`, `acctuniqueid`, `UserName`, `GroupName`, `realm`, `NASIPAddress`, `NASPortId`, `nasporttype`, `AcctStartTime`, `AcctStopTime`, `AcctSessionTime`, `acctauthentic`, `connectinfo_start`, `connectinfo_stop`, `AcctInputOctets`, `AcctOutputOctets`, `CalledStationId`, `CallingStationId`, `acctterminatecause`, `servicetype`, `framedprotocol`, `FramedIPAddress`, `acctstartdelay`, `acctstopdelay`, `xascendsessionsvrkey`) VALUES
@@ -717,6 +728,7 @@ INSERT INTO `user_stats` (`id`, `radacct_id`, `username`, `acctsessionid`, `acct
 (12865691, 9042261, 'test@testing.com', '00265C88', 'acd70425de38c814', '2015-11-08 13:13:24', 18678, 25289),
 (12869401, 9042261, 'test@testing.com', '00265C88', 'acd70425de38c814', '2015-11-08 13:18:18', 18816, 23529),
 (12873131, 9042261, 'test@testing.com', '00265C88', 'acd70425de38c814', '2015-11-08 13:23:16', 17991, 23318);
+
 INSERT INTO `user_stats` (`id`, `radacct_id`, `username`, `acctsessionid`, `acctuniqueid`, `timestamp`, `acctinputoctets`, `acctoutputoctets`) VALUES
 (12877031, 9042261, 'test@testing.com', '00265C88', 'acd70425de38c814', '2015-11-08 13:28:24', 21107, 26704),
 (12881051, 9042261, 'test@testing.com', '00265C88', 'acd70425de38c814', '2015-11-08 13:33:39', 21021, 26839),
