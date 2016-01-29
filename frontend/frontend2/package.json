@@ -41,5 +41,8 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "phantomjs-prebuilt": "^2.1.3"
   }
 }
