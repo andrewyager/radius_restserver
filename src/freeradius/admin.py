@@ -14,6 +14,7 @@ class RadAcctAdmin(admin.ModelAdmin):
 
 class RadCheckAdmin(admin.ModelAdmin):
     model = RadCheck
+    search_fields = ['username__username']
     list_display = ('username', 'attribute', 'op', 'value')
 
 class RadGroupCheckAdmin(admin.ModelAdmin):
