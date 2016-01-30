@@ -59,6 +59,7 @@ class UserStatsAdmin(admin.ModelAdmin):
 
 class UserInfoAdmin(admin.ModelAdmin):
     model = UserInfo
+    search_fields = ['username', 'name']
 
 
 admin.site.register(BadUsers, BadUsersAdmin)
