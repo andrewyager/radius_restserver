@@ -3,12 +3,12 @@
    - service: radius
      command: /bin/bash /usr/src/build/test-radius.sh
    - type: serial
-	 steps:
-	 - service: frontend
-	   command: npm install
-	 - service: frontend
-	   command: bower install
-	 - service: frontend
-	   command: grunt jshint
-	 - service: frontend
-	   command: grunt test
+     steps:
+     - service: frontend
+       command: npm install
+     - service: frontend
+       command: bower install
+     - service: frontend
+       command: grunt jshint
+     - service: frontend
+       command: grunt test
