@@ -1,6 +1,8 @@
 # radius_restserver
 REST Endpoint for FreeRadius Server
 
+![build status](https://codeship.com/projects/f21c2f30-a7c1-0133-1520-721682b6b155/status?branch=master)
+
 This includes a (very insecure) FreeRADIUS 2.0 server and a Django app for accessing RADIUS data.
 We're hoping this will one day be a replacement for ARA.
 
